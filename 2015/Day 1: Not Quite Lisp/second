@@ -1,0 +1,27 @@
+#!/usr/bin/env dash
+
+next() {
+    f=$1
+    i=$2
+    case $i in
+        "(") f=$(( f + 1 )) ;;
+        ")") f=$(( f - 1 )) ;;
+        *) ;;
+    esac
+    echo $f
+}
+
+read -r input
+
+current=0
+counter=1
+while [ -n "$input" ]; do
+    instr=${input%"${input#?}"}
+    current=$(next $current $instr)
+    if [ "$current" = "-1" ]; then
+        break
+    fi
+    input=${input#?}
+    counter=$(( counter + 1 ))
+done
+echo $counter

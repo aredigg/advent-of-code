@@ -1,0 +1,23 @@
+#!/usr/bin/env dash
+
+counter() {
+    s=$1
+    i=$2
+    n=0
+    while [ -n "$s" ]; do
+        char=${s%"${s#?}"}
+        case $char in
+            $i) n=$(( n + 1 )) ;;
+            *) ;;
+        esac
+        s=${s#?}
+    done
+    echo "$n"
+}
+
+read -r input
+echo "Input have ${#input} floor jumps"
+up=$(counter "$input" "(")
+down=$(counter "$input" ")")
+floor=$(( up - down ))
+echo "Santa is now at floor $floor"
