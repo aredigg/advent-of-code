@@ -1,0 +1,20 @@
+#!/usr/bin/env dash
+
+total=0
+while read -r input  || [ -n "$input" ]; do
+    IFS=x
+    set -- $input
+    unset IFS
+    l=$1; w=$2; h=$3
+    sa=$(( $l * $w ))
+    sb=$(( $w * $h ))
+    sc=$(( $h * $l ))
+    min=$sa
+    [ "$sb" -lt "$min" ] && min=$sb
+    [ "$sc" -lt "$min" ] && min=$sc
+    # echo $l $w $h $min
+    sum=$(( 2 * $sa + 2 * $sb + 2 * $sc + $min ))
+    # echo $sum
+    total=$(( total + sum ))
+done
+echo $total
